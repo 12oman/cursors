@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Cursor</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="mosaic">
+        <div class="svg-cur">
+            <p>SVG</p>
+        </div>
+        <div class="cur-cur">
+            <p>.cur</p>
+        </div>
+        <div class="svg-cur-enlarged">
+            <p>Big SVG</p>
+        </div>
+        <div class="gif-cur">
+            <p>Gif</p>
+            <img id="customCursor" src="images/caveman.gif"
+                style="position: absolute; display: none; height: 50px; width: 50px; pointer-events: none;" />
+        </div>
+    </div>
+
+    <script>
+        const gifCur = document.querySelector('.gif-cur');
+        // hide the default cursor
+        gifCur.style.cursor = 'none';
+        // setup the custom cursor
+        const customCursor = document.getElementById('customCursor');
+        // show the custom cursor at the mouse position
+        // offset the cursor so it's center is at the mouse position
+        // gifCur.addEventListener('mouseleave', () => {
+        //     customCursor.style.display = 'none';
+        // });
+        gifCur.addEventListener('mousemove', (e) => {
+            // calculate the mouse position relative to the div
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            // offset the cursor so its center is at the mouse position
+            const offsetWidth = customCursor.width / 2;
+            const offsetHeight = customCursor.height / 2;
+            customCursor.style.top = `${mouseY - offsetHeight}px`;
+            customCursor.style.left = `${mouseX - offsetWidth}px`;
+            customCursor.style.display = 'block';
+        });
+
+        gifCur.addEventListener('mouseleave', () => {
+            customCursor.style.display = 'none';
+        });
+    </script>
+
+</body>
+
+</html>
